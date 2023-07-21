@@ -8,7 +8,7 @@ namespace WalletApp.Middleware
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger logger)
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _logger = logger;
             _next = next;

@@ -11,5 +11,15 @@ namespace WalletApp.Controllers
         {
 
         }
+        [HttpGet("{transactionId}")]
+        public async Task<IActionResult> TransactionDetailsById(int transactionId)
+        {
+            return Ok();
+        }
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> TransactionsByUserId(int userId)
+        {
+            return Ok();
+        }
     }
 }
