@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EFCoreRepository\EFCoreRepository.csproj" />
+    <ProjectReference Include="..\WalletBusinessLogic\WalletBusinessLogic.csproj" />
   </ItemGroup>
 
 </Project>

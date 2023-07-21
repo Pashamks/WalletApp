@@ -1,8 +1,12 @@
+using AutoMapper;
 using EFCoreRepository;
+using EFCoreRepository.Interfaces;
+using EFCoreRepository.Repository;
 using Microsoft.OpenApi.Models;
 using WalletApp.Middleware;
-using Microsoft.Extensions.DependencyInjection;
-
+using WalletBusinessLogic.Interfaces;
+using WalletBusinessLogic.Managers;
+using WalletBusinessLogic.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +21,18 @@ builder.Services.AddSwaggerGenNewtonsoftSupport();
 builder.Services.AddLogging();
 
 builder.Services.AddSingleton(new EFCoreDbContext(builder.Configuration.GetConnectionString("Development")));
+builder.Services.AddSingleton<ITransactionRepository, TransactionRepository>();
+builder.Services.AddSingleton<ITransactionManager, TransactionManager>();
+builder.Services.AddSingleton<IPointManager, PointManager>();
+builder.Services.AddSingleton<IUserManager, UserManager>();
+
+var mapConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile<MappingProfile>();
+    mc.ShouldMapMethod = (m => false);
+});
+IMapper mapper = new Mapper(mapConfig);
+builder.Services.AddSingleton(mapper);
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); // for solving problem with time zore
 
